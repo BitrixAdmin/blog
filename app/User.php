@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Faker\Generator as Faker;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -26,4 +27,26 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+//    public function setEmailAttribute($value)
+//    {
+//        if (empty($value)) {
+//            $faker = \Faker\Factory::create();
+//            $this->attributes['email'] = $faker->unique()->safeEmail;
+//        } else {
+//            $this->attributes['email'] = $value;
+//        }
+//    }
+//
+//    public function setPasswordAttribute($value)
+//    {
+//        if (empty($value)) {
+//            $this->attributes['password'] = \Hash::make('123456');
+//        }
+//    }
+
+    public function animal()
+    {
+        return $this->hasOne('App\Animal');
+    }
 }
