@@ -15,6 +15,7 @@
                     @endif
 
                     You are logged in!!! Trye git from local comp and from notebooke
+                    <div class="alert">We have not .idea now</div>
                 </div>
             </div>
         </div>
