@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!!!
+                    You are logged in!!! Trye git from local comp
                 </div>
             </div>
         </div>
