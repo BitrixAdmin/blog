@@ -21,14 +21,20 @@
             <thead>
             <th>Наименование</th>
             <th>Публикация</th>
+            <th>Количество комментариев</th>
             <th>Действие</th>
             </thead>
             <tbody>
 
             @forelse ($articles as $article)
                 <tr>
-                    <td>{{$article->title}}</td>
+                    <td><a href="{{route('admin.article.show', $article)}}">{{$article->title}}</a></td>
                     <td>{{$article->published}}</td>
+                    <td>
+                        @isset($article->comments)
+                        {{$article->comments->count()}}
+                        @endisset
+                    </td>
                     <td class="text-right">
                         <form onsubmit="if(confirm('удалить')){return true}else{return false}" action="{{route('admin.article.destroy', $article)}}"
                               method="post">
