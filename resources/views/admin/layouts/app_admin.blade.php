@@ -44,6 +44,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{route('admin.category.index')}}">Категории</a></li>
                             <li><a href="{{route('admin.article.index')}}">Материалы</a></li>
+                            <li><a href="{{route('admin.country.index')}}">Страны</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">

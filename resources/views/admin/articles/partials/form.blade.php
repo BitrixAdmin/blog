@@ -39,5 +39,23 @@
 <label for="">Title</label>
 <input type="text" class="form-control" name="meta_title" placeholder="title" value="{{$article->meta_title or ""}}">
 
-<hr />
+
+<label for="">Страна</label>
+
+<select class="form-control" name="country_id">
+@foreach($countries as $country)
+        <option value="{{$country->id or ""}}"
+                @isset($article->id)
+
+                @if ($country->id == $article->country_id)
+                selected="selected"
+                @endif
+
+                @endisset
+        >
+            {{$country->name or ""}}
+        </option>
+    @endforeach
+</select>
+<hr/>
 <input class="btn btn-primary" type="submit" value="Сохранить">

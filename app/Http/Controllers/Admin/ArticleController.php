@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Article;
 use App\Category;
+use App\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -31,7 +32,8 @@ class ArticleController extends Controller
         return view('admin.articles.create', [
             'article'    => [],
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
-            'delimiter'  => ''
+            'delimiter'  => '',
+            'countries'=>Country::get(),
         ]);
     }
 
@@ -75,7 +77,8 @@ class ArticleController extends Controller
         return view('admin.articles.edit', [
             'article'    => $article,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
-            'delimiter'  => ''
+            'delimiter'  => '',
+            'countries'=>Country::get(),
         ]);
     }
 
