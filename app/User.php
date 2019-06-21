@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Animal');
     }
+
+    //many to many
+    public function roles(){
+        return $this->belongsToMany('App\Role');
+    }
 }

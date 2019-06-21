@@ -23,6 +23,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::group(['prefix'=>'user_managment', 'namespace'=>'UserManagment'],function(){
         Route::resource('/user', 'UserController',['as'=>'admin.user_managment']);
         Route::resource('/animal', 'AnimalController', ['as'=>'admin.user_managment']);
+        Route::resource('/role', 'RoleController', ['as'=>'admin.user_managment']);
     });
 });
 

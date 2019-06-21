@@ -22,6 +22,7 @@
             <th>имя</th>
             <th>майл</th>
             <th>Животное</th>
+            <th>Роли</th>
             <th>Действие</th>
             </thead>
             <tbody>
@@ -35,6 +36,7 @@
                         <a href="{{route('admin.user_managment.animal.show', $user->animal)}}">{{$user->animal->animal_name or ''}}</a>
                         @endisset
                     </td>
+                    <td>{{$user->roles()->pluck('name')->implode(', ')}}</td>
                     <td class="text-right">
                         <form onsubmit="if(confirm('удалить')){return true}else{return false}" action="{{route('admin.user_managment.user.destroy', $user)}}"
                               method="post">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\UserManagment;
 
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -27,7 +28,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user_managment.users.create');
+        return view('admin.user_managment.users.create', [
+            'user' => [],
+            'roles' => Role::get(),
+        ]);
     }
 
     /**
@@ -44,12 +48,19 @@ class UserController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-       $user = User::create([
+        $user = User::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => bcrypt($request['password'])
         ]);
+
+        //one to one
         $user->animal()->create($request->only('animal_name'));
+
+        //many to many
+        if ($request->input('roles')):
+            $user->roles()->attach($request->input('roles'));
+        endif;
 
         return redirect()->route('admin.user_managment.user.index');
     }
@@ -74,7 +85,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return view('admin.user_managment.users.edit', [
-            'user' => $user
+            'user' => $user,
+            'roles' => Role::get(),
         ]);
     }
 
@@ -105,10 +117,17 @@ class UserController extends Controller
 
         $user->update();
 
-        ($user->animal()->count())?
-            $user->animal()->update($request->only('animal_name')):
+
+        //one to one
+        ($user->animal()->count()) ?
+            $user->animal()->update($request->only('animal_name')) :
             $user->animal()->create($request->only('animal_name'));
 
+        //many to many
+        $user->roles()->detach();
+        if ($request->input('roles')) :
+            $user->roles()->attach($request->input('roles'));
+        endif;
         return redirect()->route('admin.user_managment.user.index');
     }
 
@@ -120,7 +139,13 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        //one to one
         $user->animal()->delete();
+
+        //many to many
+        $user->roles()->detach();
+
+        //user delete
         $user->delete();
         return redirect()->route('admin.user_managment.user.index');
     }

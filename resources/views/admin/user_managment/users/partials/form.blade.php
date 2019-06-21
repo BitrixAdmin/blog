@@ -3,10 +3,10 @@
         <ul>
             @foreach($errors->all() as $error)
                 <li>{{$error}}</li>
-                @endforeach
+            @endforeach
         </ul>
     </div>
-    @endif
+@endif
 
 <label for="">Имя</label>
 <input type="text" class="form-control" name="name" placeholder="Имя"
@@ -27,6 +27,26 @@
 <input type="text" class="form-control" name="animal_name" placeholder="Животное"
        value="{{$user->animal->animal_name or ''}}" required>
 
+<div class="form-group">
+    <label class="col-sm-2 control-label">Роли:</label>
 
-<hr />
+    <div class="col-sm-10">
+        @foreach($roles as $role)
+
+            <input type="checkbox" name="roles[]" value="{{$role->id}}"
+                   @isset($user->roles)
+                   @if($user->roles->where('id',$role->id)->count())
+                   checked="checked"
+                    @endif
+                    @endisset
+            >
+            <label class="">{{ucfirst($role->name)}}</label>
+            <br>
+        @endforeach
+    </div>
+
+</div>
+
+
+<hr/>
 <input class="btn btn-primary" type="submit" value="Сохранить">
